@@ -85,17 +85,44 @@ namespace SQE
                 }
             }
 
-            string finaldat = "";
+            string finaldat = "\t\t12 часов\t 13 часов\t 14 часов\t 15 часов\t 16 часов\t 17 часов\t\n";
             for (int i = 0; i < 7; i++)
             {
-                for (int j = 8; j < 16; j++)
+                switch (i)
                 {
-                    finaldat += dateAndTime[i, j] + " ";
+                    case 1:
+                        finaldat += "Понедельник\t";
+                        break;
+                    case 2:
+                        finaldat += "Вторник\t\t";
+                        break;
+                    case 3:
+                        finaldat += "Среда\t\t";
+                        break;
+                    case 4:
+                        finaldat += "Четверг\t\t";
+                        break;
+                    case 5:
+                        finaldat += "Пятница\t\t";
+                        break;
+                    case 6:
+                        finaldat += "Суббота\t\t";
+                        break;
+                    case 0:
+                        finaldat += "Воскресенье\t";
+                        break;
+                    default:
+                        MessageBox.Show("Упс... Неизвестный день.");
+                        break;
+                }
+                for (int j = 12; j < 18; j++)
+                {
+                    finaldat += dateAndTime[i, j] + "\t ";
                 }
                 finaldat += "\n";
             }
 
-            richTextBox1.Text = finaldat + "Частота запросов в понедельник: \t"  + rf.freqInWeek[1] + "\n" +
+            richTextBox1.Text = finaldat + "\nЧастота запросов в понедельник: \t"  + rf.freqInWeek[1] + "\n" +
                                 "Частота запросов во вторник: \t"     + rf.freqInWeek[2] + "\n" +
                                 "Частота запросов в среду: \t\t"      + rf.freqInWeek[3] + "\n" +
                                 "Частота запросов в четверг: \t"      + rf.freqInWeek[4] + "\n" +
@@ -105,7 +132,7 @@ namespace SQE
             string freqTimeStr = "";
             for (int i = 0; i < 24; i++)
             {
-                freqTimeStr += "Частота запросов по времени в " + i + " часов: " + rf.freqInDay[i] + "\n";
+                freqTimeStr += "Частота запросов по времени в " + i + " часов: \t" + rf.freqInDay[i] + "\n";
             }
 
             richTextBox1.Text += freqTimeStr;
