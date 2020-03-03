@@ -64,7 +64,12 @@ namespace SQE
                 if (s.Length > 0)
                 {
                     string date = s.Substring(0, s.IndexOf(','));
-                    rf.IncreaseDayFreq(rf.GetDay(date));
+                    DayOfWeek tmpDayOfWeek = rf.GetDay(date); //------------------------------
+                    //if (tmpDayOfWeek == "")
+                    //{
+                    //    return;
+                    //}
+                    rf.IncreaseDayFreq(tmpDayOfWeek);
                     string time = s.Substring(s.IndexOf(',')+2, 2);
                     if (int.TryParse(time, out timeParsed))
                     {
@@ -77,13 +82,13 @@ namespace SQE
                 }
             }
 
-            richTextBox1.Text = "Частота запросов в понедельник: \t"  + rf.freqInWeek[0] + "\n" +
-                                "Частота запросов во вторник: \t"     + rf.freqInWeek[0] + "\n" +
-                                "Частота запросов в среду: \t\t"      + rf.freqInWeek[1] + "\n" +
-                                "Частота запросов в четверг: \t"      + rf.freqInWeek[2] + "\n" +
-                                "Частота запросов в пятницу: \t"      + rf.freqInWeek[3] + "\n" +
-                                "Частота запросов в субботу: \t"      + rf.freqInWeek[4] + "\n" +
-                                "Частота запросов в воскресенье: \t"  + rf.freqInWeek[5] + "\n\n";
+            richTextBox1.Text = "Частота запросов в понедельник: \t"  + rf.freqInWeek[1] + "\n" +
+                                "Частота запросов во вторник: \t"     + rf.freqInWeek[2] + "\n" +
+                                "Частота запросов в среду: \t\t"      + rf.freqInWeek[3] + "\n" +
+                                "Частота запросов в четверг: \t"      + rf.freqInWeek[4] + "\n" +
+                                "Частота запросов в пятницу: \t"      + rf.freqInWeek[5] + "\n" +
+                                "Частота запросов в субботу: \t"      + rf.freqInWeek[6] + "\n" +
+                                "Частота запросов в воскресенье: \t"  + rf.freqInWeek[0] + "\n\n";
             string freqTimeStr = "";
             for (int i = 0; i < 24; i++)
             {
@@ -128,25 +133,25 @@ namespace SQE
                 switch (dw.ToString()) 
                 {
                     case "Monday":
-                        freqInWeek[0]++;
-                    break;
-                    case "Tuesday":
                         freqInWeek[1]++;
                     break;
-                    case "Wednesday":
+                    case "Tuesday":
                         freqInWeek[2]++;
                     break;
-                    case "Thursday":
+                    case "Wednesday":
                         freqInWeek[3]++;
                     break;
-                    case "Friday":
+                    case "Thursday":
                         freqInWeek[4]++;
                     break;
-                    case "Saturday":
+                    case "Friday":
                         freqInWeek[5]++;
                     break;
-                    case "Sunday":
+                    case "Saturday":
                         freqInWeek[6]++;
+                    break;
+                    case "Sunday":
+                        freqInWeek[0]++;
                     break;
                     default:
                         MessageBox.Show("Упс... Неизвестный день.");
