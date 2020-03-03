@@ -25,7 +25,7 @@ namespace SQE
 
             
         }
-
+        string originText = "";
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog OPF = new OpenFileDialog();
@@ -37,7 +37,7 @@ namespace SQE
                     using (StreamReader sr = new StreamReader(OPF.FileName))
                     {
                         //Читаем в строку
-                        string originText = sr.ReadToEnd();                        
+                        originText = sr.ReadToEnd();                        
                         AnalyzeText(originText);
                     }
                 }
@@ -52,6 +52,7 @@ namespace SQE
         {
             string[] newLineSeparator = new string[] { "\n" };
             string[] result;
+            int[,] dateAndTime = new int[7,24];
             int timeParsed;
 
             DayOfWeek[] days = new DayOfWeek[7];
@@ -73,6 +74,8 @@ namespace SQE
                     string time = s.Substring(s.IndexOf(',')+2, 2);
                     if (int.TryParse(time, out timeParsed))
                     {
+                        int dayNumber = Convert.ToInt32(tmpDayOfWeek);
+                        dateAndTime[dayNumber,timeParsed]++;
                         rf.freqInDay[timeParsed]++;
                     }
                     else
@@ -82,7 +85,17 @@ namespace SQE
                 }
             }
 
-            richTextBox1.Text = "Частота запросов в понедельник: \t"  + rf.freqInWeek[1] + "\n" +
+            string finaldat = "";
+            for (int i = 0; i < 7; i++)
+            {
+                for (int j = 8; j < 16; j++)
+                {
+                    finaldat += dateAndTime[i, j] + " ";
+                }
+                finaldat += "\n";
+            }
+
+            richTextBox1.Text = finaldat + "Частота запросов в понедельник: \t"  + rf.freqInWeek[1] + "\n" +
                                 "Частота запросов во вторник: \t"     + rf.freqInWeek[2] + "\n" +
                                 "Частота запросов в среду: \t\t"      + rf.freqInWeek[3] + "\n" +
                                 "Частота запросов в четверг: \t"      + rf.freqInWeek[4] + "\n" +
@@ -96,6 +109,8 @@ namespace SQE
             }
 
             richTextBox1.Text += freqTimeStr;
+
+
         }
 
         class RequestFrequency
@@ -163,6 +178,9 @@ namespace SQE
 
         }
 
-
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
