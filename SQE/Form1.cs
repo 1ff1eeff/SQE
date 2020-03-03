@@ -17,15 +17,8 @@ namespace SQE
         public Form1()
         {
             InitializeComponent();
-
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-            
-        }
-        string originText = "";
+        
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog OPF = new OpenFileDialog();
@@ -37,7 +30,7 @@ namespace SQE
                     using (StreamReader sr = new StreamReader(OPF.FileName))
                     {
                         //Читаем в строку
-                        originText = sr.ReadToEnd();                        
+                        string originText = sr.ReadToEnd();                        
                         AnalyzeText(originText);
                     }
                 }
@@ -53,9 +46,6 @@ namespace SQE
             string[] newLineSeparator = new string[] { "\n" };
             string[] result;
             int[,] dateAndTime = new int[7,24];
-            int timeParsed;
-
-            DayOfWeek[] days = new DayOfWeek[7];
 
             result = source.Split(newLineSeparator, StringSplitOptions.None);
             RequestFrequency rf = new RequestFrequency();
@@ -65,14 +55,10 @@ namespace SQE
                 if (s.Length > 0)
                 {
                     string date = s.Substring(0, s.IndexOf(','));
-                    DayOfWeek tmpDayOfWeek = rf.GetDay(date); //------------------------------
-                    //if (tmpDayOfWeek == "")
-                    //{
-                    //    return;
-                    //}
+                    DayOfWeek tmpDayOfWeek = rf.GetDay(date); 
                     rf.IncreaseDayFreq(tmpDayOfWeek);
                     string time = s.Substring(s.IndexOf(',')+2, 2);
-                    if (int.TryParse(time, out timeParsed))
+                    if (int.TryParse(time, out int timeParsed))
                     {
                         int dayNumber = Convert.ToInt32(tmpDayOfWeek);
                         dateAndTime[dayNumber,timeParsed]++;
@@ -170,9 +156,7 @@ namespace SQE
                     MessageBox.Show("Неизвестный формат даты.");
                 }
                 return dt;
-            }
-
-
+            }            
 
             public void IncreaseDayFreq(DayOfWeek dw) {
                 switch (dw.ToString()) 
@@ -208,9 +192,5 @@ namespace SQE
 
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            
-        }
     }
 }
