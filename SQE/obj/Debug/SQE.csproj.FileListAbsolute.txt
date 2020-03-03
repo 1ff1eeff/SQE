@@ -1,7 +1,6 @@
 C:\Users\User\source\repos\SQE\SQE\bin\Debug\SQE.exe.config
 C:\Users\User\source\repos\SQE\SQE\bin\Debug\SQE.exe
 C:\Users\User\source\repos\SQE\SQE\bin\Debug\SQE.pdb
-C:\Users\User\source\repos\SQE\SQE\obj\Debug\SQE.csprojAssemblyReference.cache
 C:\Users\User\source\repos\SQE\SQE\obj\Debug\SQE.Form1.resources
 C:\Users\User\source\repos\SQE\SQE\obj\Debug\SQE.Properties.Resources.resources
 C:\Users\User\source\repos\SQE\SQE\obj\Debug\SQE.csproj.GenerateResource.cache
